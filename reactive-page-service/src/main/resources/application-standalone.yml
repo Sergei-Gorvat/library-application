@@ -1,0 +1,7 @@
+gorvat :
+  services :
+    book :
+      uri : http://localhost:8081
+
+server :
+  port : 8083

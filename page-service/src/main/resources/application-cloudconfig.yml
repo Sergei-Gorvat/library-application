@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: page-service
+  config:
+    import: 'optional:configserver:'
+  cloud:
+    config:
+      uri: http://sergei:gorvat@localhost:8888

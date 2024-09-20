@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+            <meta charset = "UTF-8">
+            <title>Редактирование книги &laquo; [[${book.title}]] &raquo;</title>
+</head>
+
+<body>
+<a data-th-href = "@{/catalogue/books/{bookId}(bookId = ${book.id})}">&larr; Вернутся на страницу книги</a>
+<h1> Редактирование книги &laquo; [[${book.title}]]</h1>
+<div data-th-if = "${errors}">
+            <h2> Допущены ошибки</h2>
+            <ul>
+                        <li data-th-each = "error : ${errors}" data-th-text = "${error}"></li>
+            </ul>
+</div>
+<form method = "post" data-th-action = "@{/catalogue/books/{bookId}/edit(bookId = ${book.id})}">
+            <label>
+                        Название книги: <br>
+                        <input type = "text" name = "title"
+                               data-th-value = "${payload != null ? payload.title : book.title}">
+            </label>
+            <br>
+            <label>
+                        Автор книги: <br>
+                        <input type = "text" name = "author"
+                               data-th-value = "${payload != null ? payload.author : book.author}">
+            </label>
+            <br>
+            <label>
+                        Год публикации книги: <br>
+                        <input type = "number" name = "publication"
+                               data-th-value = "${payload != null ? payload.publication : book.publication}">
+            </label>
+            <br>
+            <br>
+            <button type = "submit">Внести изменения в данные книги</button>
+</form>
+</body>
+</html>

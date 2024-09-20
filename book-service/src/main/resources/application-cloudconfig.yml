@@ -1,0 +1,11 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: book-service
+  config:
+    import: 'optional:configserver:'
+  cloud:
+    config:
+      uri: http://sergei:gorvat@localhost:8888

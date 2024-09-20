@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+            <meta charset = "UTF-8">
+            <title>[[${book.title}]]</title>
+</head>
+
+<body>
+<a data-th-href = "@{/catalogue/books/list}">&larr; Вернутся на страницу списка всех книг</a>
+<h1 data-th-text = "${book.title}"></h1>
+<ul>
+            <li><strong>ID</strong>: <span data-th-text = "${book.id}"></span></li>
+            <li><strong>Название книги</strong>: <span data-th-text = "${book.title}"></span></li>
+            <li><strong>Автор книги</strong>: <span data-th-text = "${book.author}"></span></li>
+            <li><strong>Год публикации книги</strong>: <span data-th-text = "${book.publication}"></span></li>
+</ul>
+<a data-th-href = "@{/catalogue/books/{bookId}/edit(bookId = ${book.id})}">Внести изменения в данные книги</a>
+<form method = "post" data-th-action = "@{/catalogue/books/{bookId}/delete(bookId = ${book.id})}">
+            <button type = "submit">Удалить книгу из списка</button>
+</form>
+</body>
+</html>

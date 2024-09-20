@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+      <meta charset = "UTF-8">
+      <title>Каталог книг</title>
+</head>
+<body>
+<h1>Каталог книг</h1>
+<ul>
+      <li data-th-each = "book : ${books}">
+            <strong>
+                  <a data-th-text = "${book.title}"
+                     data-th-href = "@{/customer/books/{bookId}(bookId = ${book.id})}"></a>
+            </strong>
+      </li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,12 @@
+server:
+  port: 8086
+  forward-headers-strategy: FRAMEWORK
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: library-service-route
+          uri: http://172.17.0.1:8081
+          predicates:
+            - Host=172.17.0.1.nip.io

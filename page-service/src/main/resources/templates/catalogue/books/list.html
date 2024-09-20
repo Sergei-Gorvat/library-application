@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+            <meta charset = "UTF-8">
+            <title>Список книг</title>
+</head>
+<body>
+<h1>Список всех книг</h1>
+<form method = "get" data-th-action = "@{/catalogue/books/list}">
+            <label>Фильтр: <input type = "text" name = "filter" data-th-value = "${filter}">
+                        <button type = "submit">Поиск</button>
+            </label>
+</form>
+<table>
+            <thead>
+            <tr>
+                        <th><h3>ID</h3>
+                        <th><h3>Название книги</h3>
+                        <th><h3>Автор книги</h3>
+                        <th><h3>Год публикации книги</h3>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-th-each = "book : ${books}">
+                        <td data-th-text = "${book.id}">
+                        <td>
+                                    <a data-th-href = "@{/catalogue/books/{bookId}(bookId = ${book.id})}"
+                                       data-th-text = "${book.title}"></a>
+                        </td>
+                        <td>
+                                    <a data-th-href = "@{/catalogue/books/{bookId}(bookId = ${book.id})}"
+                                       data-th-text = "${book.author}"></a>
+                        </td>
+                        <td>
+                                    <a data-th-href = "@{/catalogue/books/{bookId}(bookId = ${book.id})}"
+                                       data-th-text = "${book.publication}"></a>
+                        </td>
+            </tr>
+            </tbody>
+</table>
+<br>
+<a data-th-href = "@{/catalogue/books/create}"> Добавить новую книгу</a>
+</body>
+</html>

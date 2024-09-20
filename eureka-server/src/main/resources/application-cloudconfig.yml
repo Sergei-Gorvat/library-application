@@ -1,0 +1,12 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: eureka-server
+  config:
+    import: 'optional:configserver:'
+  cloud:
+    config:
+      uri:
+        - http://sergei:gorvat@localhost:8888

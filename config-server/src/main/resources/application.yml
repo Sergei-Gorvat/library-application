@@ -1,0 +1,7 @@
+spring:
+  security:
+    user:
+      name: sergei
+      password: gorvat
+      roles:
+        - CONFIG

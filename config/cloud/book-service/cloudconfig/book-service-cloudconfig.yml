@@ -1,0 +1,27 @@
+spring:
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: http://localhost:8082/realms/rojok
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/catalogue
+    username: sergei
+    password: gorvat
+  flyway:
+    schemas:
+      - public
+      - catalogue
+  jpa:
+    show-sql: true
+logging:
+  level:
+    sql: info
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
