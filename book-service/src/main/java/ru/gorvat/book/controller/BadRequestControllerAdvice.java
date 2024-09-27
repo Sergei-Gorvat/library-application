@@ -1,4 +1,4 @@
-package ru.gorvat.book.controller.exception;
+package ru.gorvat.book.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;

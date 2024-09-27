@@ -3,3 +3,9 @@ spring :
     url : jdbc:tc:postgresql:16:///test_bd?TC_DAEMON=true
     username : sergei
     password : gorvat
+  cloud:
+    config:
+      enabled: false
+eureka:
+  client:
+    enabled: false
