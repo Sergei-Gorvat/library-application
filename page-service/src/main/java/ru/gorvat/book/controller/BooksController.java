@@ -1,6 +1,8 @@
 package ru.gorvat.book.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,11 +34,12 @@ public class BooksController {
     }
 
     @PostMapping ("create")
-    public String createBook (NewBookPayload payload, Model model) {
+    public String createBook (NewBookPayload payload, Model model, HttpServletResponse response) {
         try {
             Book book = this.restClient.createBook (payload.title ( ), payload.author ( ), payload.publication ( ));
             return "redirect:/catalogue/books/%d".formatted (book.id ( ));
         } catch (BadRequestException exception) {
+            response.setStatus (HttpStatus.BAD_REQUEST.value ());
             model.addAttribute ("payload", payload);
             model.addAttribute ("errors", exception.getErrors ( ));
             return "catalogue/books/new_book";

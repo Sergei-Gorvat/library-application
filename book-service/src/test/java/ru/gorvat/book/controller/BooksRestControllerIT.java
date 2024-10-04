@@ -29,7 +29,9 @@ class BooksRestControllerIT {
     @Sql ("/sql/books.sql")
     void findBooks_ReturnsBooksList () throws Exception {
 
-        var requestBuilder = MockMvcRequestBuilders.get ("/book-api/books").param ("filter", "книга").with (jwt ().jwt (builder -> builder.claim ("scope", "view_catalogue")));
+        var requestBuilder = MockMvcRequestBuilders.get ("/book-api/books")
+                .param ("filter", "книга").with (jwt ().jwt (builder ->
+                        builder.claim ("scope", "view_catalogue")));
 
         this.mockMvc.perform (requestBuilder)
 
@@ -52,13 +54,16 @@ class BooksRestControllerIT {
 
     @Test
     void createBook_RequestIsValid_ReturnsNewBook () throws Exception {
-        var requestBuilder = MockMvcRequestBuilders.post ("/book-api/books").contentType (MediaType.APPLICATION_JSON).content ("""
+        var requestBuilder = MockMvcRequestBuilders.post ("/book-api/books")
+                .contentType (MediaType.APPLICATION_JSON).content ("""
                 {"title" : "Новая книга", "author" : "Новый автор", "publication" : 2024}
                 """).with (jwt ().jwt (builder -> builder.claim ("scope", "edit_catalogue")));
 
         this.mockMvc.perform (requestBuilder)
 
-                .andDo (print ()).andExpectAll (status ().isCreated (), header ().string (HttpHeaders.LOCATION, "http://localhost/book-api/books/1"), content ().contentTypeCompatibleWith (MediaType.APPLICATION_JSON), content ().json ("""
+                .andDo (print ()).andExpectAll (
+                        status ().isCreated (), header ()
+                                .string (HttpHeaders.LOCATION, "http://localhost/book-api/books/1"), content ().contentTypeCompatibleWith (MediaType.APPLICATION_JSON), content ().json ("""
                         {
                         "id" : 1,
                          "title" : "Новая книга",

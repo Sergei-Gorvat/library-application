@@ -26,7 +26,8 @@ public class BookController {
 
     @ModelAttribute ("book")
     public Book book (@PathVariable ("bookId") int bookId) {
-        return this.restClient.findBook (bookId).orElseThrow (() -> new NoSuchElementException ("errors.book.not_found"));
+        return this.restClient.findBook (bookId)
+                .orElseThrow (() -> new NoSuchElementException ("errors.book.not_found"));
     }
 
     @GetMapping
@@ -40,11 +41,14 @@ public class BookController {
     }
 
     @PostMapping ("edit")
-    public String updateBook (@ModelAttribute (value = "book", binding = false) Book book, UpdateBookPayload payload, Model model) {
+    public String updateBook (@ModelAttribute (value = "book", binding = false) Book book,
+                              UpdateBookPayload payload, Model model,
+                              HttpServletResponse response) {
         try {
             this.restClient.updateBook (book.id (), payload.title (), payload.author (), payload.publication ());
             return "redirect:/catalogue/books/%d".formatted (book.id ());
         } catch (BadRequestException exception) {
+            response.setStatus (HttpStatus.BAD_REQUEST.value ());
             model.addAttribute ("payload", payload);
             model.addAttribute ("errors", exception.getErrors ());
             return "catalogue/books/edit";
@@ -58,9 +62,13 @@ public class BookController {
     }
 
     @ExceptionHandler (NoSuchElementException.class)
-    public String handlerNoSuchElementException (NoSuchElementException exception, Model model, HttpServletResponse response, Locale locale) {
+    public String handlerNoSuchElementException (NoSuchElementException exception,
+                                                 Model model,
+                                                 HttpServletResponse response, Locale locale) {
         response.setStatus (HttpStatus.NOT_FOUND.value ());
-        model.addAttribute ("error", this.messageSource.getMessage (exception.getMessage (), new Object[0], exception.getMessage (), locale));
+        model.addAttribute ("error",
+                this.messageSource.getMessage (exception.getMessage (), new Object[0],
+                        exception.getMessage (), locale));
         return "errors/404";
     }
 }

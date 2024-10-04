@@ -4,26 +4,29 @@ server:
 spring:
   application:
     name: book-service
-
+  datasource:
+    url: jdbc:postgresql://localhost:5432/catalogue
+    username: sergei
+    password: gorvat
+  jpa:
+    show-sql: true
+  flyway:
+    schemas:
+      - public
+      - catalogue
   security:
     oauth2:
       resource-server:
         jwt:
           issuer-uri: http://localhost:8082/realms/rojok
+  cloud:
+    config:
+      enabled: false
 
-  datasource:
-    url: jdbc:postgresql://localhost:5432/catalogue
-    username: sergei
-    password: gorvat
-  flyway:
-    schemas:
-      - public
-      - catalogue
-  jpa:
-    show-sql: true
 logging:
   level:
     sql: info
+
 
 eureka:
   client:
@@ -31,3 +34,4 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   instance:
     prefer-ip-address: true
+
